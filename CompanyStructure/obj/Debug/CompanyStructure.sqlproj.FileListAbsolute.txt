@@ -1,0 +1,6 @@
+C:\Dev\Projects\CompanyStructure\CompanyStructure\bin\Debug\CompanyStructure.dacpac
+C:\Dev\Projects\CompanyStructure\CompanyStructure\bin\Debug\CompanyStructure.dll
+C:\Dev\Projects\CompanyStructure\CompanyStructure\bin\Debug\CompanyStructure.pdb
+C:\Dev\Projects\CompanyStructure\CompanyStructure\obj\Debug\CompanyStructure.sqlprojAssemblyReference.cache
+C:\Dev\Projects\CompanyStructure\CompanyStructure\obj\Debug\CompanyStructure.dll
+C:\Dev\Projects\CompanyStructure\CompanyStructure\obj\Debug\CompanyStructure.pdb
