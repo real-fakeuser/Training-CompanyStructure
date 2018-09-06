@@ -1,0 +1,4 @@
+﻿CREATE VIEW [dbo].[viBranch]
+	AS	SELECT B.Id, B.Manager_Id, B.Company_Id
+		FROM [Branch] AS B
+		WHERE B.DeleteTime = 0
