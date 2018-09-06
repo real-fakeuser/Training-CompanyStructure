@@ -69,10 +69,11 @@
     <Build Include="Tables\Company.sql" />
     <Build Include="Tables\Employee.sql" />
     <Build Include="Views\viBranch.sql" />
-    <Build Include="Views\viCompany.sql" />
     <Build Include="Views\viEmployee.sql" />
     <Build Include="Tables\ZipAndCity.sql" />
-    <Build Include="Tables\Address2Employee.sql" />
     <Build Include="Tables\Address2Company.sql" />
+    <Build Include="Tables\Address2Employee.sql" />
+    <Build Include="Views\viCompanyDetailed.sql" />
+    <Build Include="Views\viLinkTableEditCompany.sql" />
   </ItemGroup>
 </Project>
