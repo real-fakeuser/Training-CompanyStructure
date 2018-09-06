@@ -1,0 +1,39 @@
+﻿** Hervorhebungen
+     Tabellen, die neu erstellt werden.
+       Kein
+     Gruppierte Indizes, die gelöscht werden.
+       Kein
+     Gruppierte Indizes, die erstellt werden.
+       Kein
+     Mögliche Datenprobleme
+       Kein
+
+** Benutzeraktionen
+     Erstellen
+       [dbo].[Address] (Tabelle)
+       [dbo].[Address2Company] (Tabelle)
+       [dbo].[Address2Employee] (Tabelle)
+       [dbo].[Branch] (Tabelle)
+       [dbo].[Company] (Tabelle)
+       [dbo].[Employee] (Tabelle)
+       [dbo].[ZipAndCity] (Tabelle)
+       DEFAULT-Einschränkung: unbenannte Einschränkungen auf [dbo].[Address] (DEFAULT-Einschränkung)
+       DEFAULT-Einschränkung: unbenannte Einschränkungen auf [dbo].[Address2Company] (DEFAULT-Einschränkung)
+       DEFAULT-Einschränkung: unbenannte Einschränkungen auf [dbo].[Address2Employee] (DEFAULT-Einschränkung)
+       DEFAULT-Einschränkung: unbenannte Einschränkungen auf [dbo].[Branch] (DEFAULT-Einschränkung)
+       DEFAULT-Einschränkung: unbenannte Einschränkungen auf [dbo].[Company] (DEFAULT-Einschränkung)
+       DEFAULT-Einschränkung: unbenannte Einschränkungen auf [dbo].[Employee] (DEFAULT-Einschränkung)
+       DEFAULT-Einschränkung: unbenannte Einschränkungen auf [dbo].[ZipAndCity] (DEFAULT-Einschränkung)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Company] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Company] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Employee] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Employee] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Branch] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Branch] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Employee] (Fremdschlüssel)
+       [dbo].[viBranch] (Sicht)
+       [dbo].[viCompany] (Sicht)
+       [dbo].[viEmployee] (Sicht)
+
+** Unterstützende Aktionen
