@@ -75,5 +75,7 @@
     <Build Include="Tables\Address2Employee.sql" />
     <Build Include="Views\viCompanyDetailed.sql" />
     <Build Include="Views\viLinkTableEditCompany.sql" />
+    <Build Include="Views\viAddress_temp.sql" />
+    <Build Include="Views\viZipAndCity.sql" />
   </ItemGroup>
 </Project>
