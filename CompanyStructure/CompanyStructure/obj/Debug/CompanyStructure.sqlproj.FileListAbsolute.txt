@@ -3,6 +3,7 @@ C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\bin\Debug\Com
 C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\bin\Debug\CompanyStructure.pdb
 C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\obj\Debug\CompanyStructure.dll
 C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\obj\Debug\CompanyStructure.pdb
+C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\obj\Debug\CompanyStructure.sqlprojAssemblyReference.cache
 C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\obj\Debug\Model.xml
 C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\obj\Debug\refactor.xml
 C:\Dev\Projects\CompanyStructure\CompanyStructure\CompanyStructure\obj\Debug\postdeploy.sql

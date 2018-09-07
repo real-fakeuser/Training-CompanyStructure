@@ -530,7 +530,6 @@
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[dbo].[Address].[CityId]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -942,7 +941,6 @@
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[dbo].[Department].[CompanyId]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -1037,7 +1035,6 @@
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[dbo].[Employee].[DepartmentId]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -1071,7 +1068,6 @@
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[dbo].[Employee].[Gender]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -1087,7 +1083,6 @@
 				</Entry>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[dbo].[Employee].[DateOfBirth]">
-						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -1142,6 +1137,920 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrRemoveAddressCompany]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	
+	declare @DBId int
+	Set @DBId = (	SELECT L.AddressId
+					FROM Address2Company L
+					WHERE L.AddressId = @AddressId
+							AND L.CompanyId = @CompanyId
+					)
+
+	if(@DBId is null)
+		BEGIN			--No dataset found! inserting new dataset
+			INSERT INTO [DBO].[Address2Company]	(
+										AddressId,
+										CompanyId
+										)
+			VALUES						(
+										@AddressId,
+										@CompanyId
+										)
+			SET @DBId = @@IDENTITY
+		END
+	else
+		BEGIN
+			DELETE [dbo].[Address2Company]
+			WHERE AddressId = @AddressId
+				AND CompanyId = @CompanyId
+		END
+	SELECT @DBId
+	RETURN @DBId
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Company]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Company].[AddressId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrRemoveAddressCompany].[@AddressId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Company].[CompanyId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrRemoveAddressCompany].[@CompanyId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Company].[AddressId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Company].[CompanyId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrRemoveAddressCompany].[@CompanyId]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrRemoveAddressCompany].[@AddressId]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="725" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrRemoveAddressCompany]&#xD;&#xA;&#x9;@CompanyId int = null,&#xD;&#xA;&#x9;@AddressId int = null&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrRemoveAddressEmployee]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	
+	declare @DBId int
+	Set @DBId = (	SELECT L.AddressId
+					FROM Address2Employee L
+					WHERE L.AddressId = @AddressId
+							AND L.EmployeeId = @EmployeeId
+					)
+
+	if(@DBId is null)
+		BEGIN			--No dataset found! inserting new dataset
+			INSERT INTO [DBO].[Address2Employee]	(
+										AddressId,
+										EmployeeId
+										)
+			VALUES						(
+										@AddressId,
+										@EmployeeId
+										)
+			SET @DBId = @@IDENTITY
+		END
+	else
+		BEGIN
+			DELETE [dbo].[Address2Employee]
+			WHERE AddressId = @AddressId
+				AND EmployeeId = @EmployeeId
+		END
+	SELECT @DBId
+	RETURN @DBId
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Employee]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Employee].[AddressId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrRemoveAddressEmployee].[@AddressId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Employee].[EmployeeId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrRemoveAddressEmployee].[@EmployeeId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Employee].[AddressId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address2Employee].[EmployeeId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrRemoveAddressEmployee].[@EmployeeId]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrRemoveAddressEmployee].[@AddressId]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="736" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrRemoveAddressEmployee]&#xD;&#xA;&#x9;@EmployeeId int = null,&#xD;&#xA;&#x9;@AddressId int = null&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrUpdateAddress]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	declare @DBCity int
+	Set		@DBCity = (
+					SELECT Id
+					FROM City
+					WHERE	[City].[Id] = @CityId
+					)
+
+
+	IF(@DBCity IS NULL)			--If null the city has to be created
+	BEGIN
+		INSERT INTO [dbo].[City]	(
+									Name,
+									ZipCode,
+									CountryCode
+									)
+		VALUES						(
+									@City,
+									@ZipCode,
+									@CountryCode
+									)									
+		Set	@DBCity = @@IDENTITY
+	END
+--Now we have the city's Id
+
+	declare @DBId int
+	Set @DBId = (	SELECT Id 
+					FROM viAddress 
+					WHERE Id = @Id)
+
+	if(@DBId is null)
+		BEGIN			--No dataset found! inserting new dataset
+			INSERT INTO [DBO].[Address]	(
+										Street,
+										CityId
+										)
+			VALUES						(
+										@Street,
+										@DBCity
+										)
+			SET @DBId = @@IDENTITY
+		END
+	else
+		BEGIN
+			UPDATE [dbo].[Address]
+			SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
+					[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END
+			WHERE	Id = @Id
+		END
+	SELECT @DBId
+	RETURN @DBId
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[City]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[City].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[City].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@CityId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[City].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[City].[ZipCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[City].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@City]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@ZipCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[viAddress]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[viAddress].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address].[Street]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address].[CityId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@Street]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address].[Id]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateAddress].[@Id]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateAddress].[@Street]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="256" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateAddress].[@CityId]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateAddress].[@City]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="256" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateAddress].[@ZipCode]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateAddress].[@CountryCode]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="5" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="1277" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateAddress]&#xD;&#xA;&#x9;@Id&#x9;&#x9;int = -1,&#xD;&#xA;&#x9;@Street&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@CityId&#x9;int = -1,&#xD;&#xA;&#x9;@City&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@ZipCode&#x9;int = -1,&#xD;&#xA;&#x9;@CountryCode&#x9;nvarchar(5) = null&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrUpdateCompany]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	declare @DBId int
+	Set @DBId = (	SELECT Id 
+					FROM Company 
+					WHERE Id = @Id)
+
+	if(@DBId is null)
+		BEGIN			--No dataset found! inserting new dataset
+			INSERT INTO [DBO].[Company]	(
+										Name
+										)
+			VALUES						(
+										@Name
+										)
+			SET @DBId = @@IDENTITY
+		END
+	else
+		BEGIN
+			UPDATE [dbo].[Company]
+			SET		[Name]	=	CASE WHEN @Name IS NULL		THEN [Name]		ELSE @Name	END
+			WHERE	Id = @Id
+		END
+	SELECT @DBId
+	RETURN @DBId
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Company]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Company].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateCompany].[@Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Company].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateCompany].[@Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Company].[Id]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateCompany].[@Id]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateCompany].[@Name]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="256" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="589" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateCompany]&#xD;&#xA;&#x9;@Id&#x9;&#x9;int = -1,&#xD;&#xA;&#x9;@Name nvarchar(256) = null&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrUpdateDepartment]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	declare @DBId int
+	Set @DBId = (	SELECT Id 
+					FROM Department 
+					WHERE Id = @Id)
+
+	if(@DBId is null)
+		BEGIN			--No dataset found! inserting new dataset
+			INSERT INTO [DBO].[Department]	(
+										ManagerId,
+										CompanyId,
+										Name
+										)
+			VALUES						(
+										@ManagerId,
+										@CompanyId,
+										@Name
+										)
+			SET @DBId = @@IDENTITY
+		END
+	else
+		BEGIN
+			UPDATE [dbo].[Department]
+			SET		[ManagerId]	=	CASE WHEN @ManagerId IS NULL		THEN [ManagerId]		ELSE @ManagerId	END,
+					[CompanyId]	=	CASE WHEN @CompanyId IS NULL		THEN [CompanyId]		ELSE @CompanyId	END,
+					[Name]		=	CASE WHEN @Name IS NULL				THEN [Name]				ELSE @Name	END
+			WHERE	Id = @Id
+		END
+	SELECT @DBId
+	RETURN @DBId
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Department].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateDepartment].[@Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Department].[ManagerId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Department].[CompanyId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Department].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateDepartment].[@ManagerId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateDepartment].[@CompanyId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateDepartment].[@Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Department].[Id]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateDepartment].[@Id]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateDepartment].[@ManagerId]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateDepartment].[@CompanyId]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateDepartment].[@Name]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="256" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="924" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateDepartment]&#xD;&#xA;&#x9;@Id&#x9;&#x9;int = -1,&#xD;&#xA;&#x9;@ManagerId&#x9;int = null,&#xD;&#xA;&#x9;@CompanyId&#x9;int = null,&#xD;&#xA;&#x9;@Name&#x9;nvarchar(256) = null&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrUpdateEmployee]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	
+	declare @DBId int
+	Set @DBId = (	SELECT Id 
+					FROM Employee
+					WHERE Id = @Id)
+
+	if(@DBId is null)
+		BEGIN			--No dataset found! inserting new dataset
+			INSERT INTO [DBO].[Employee]	(
+										DepartmentId,
+										Name,
+										Gender,
+										DateOfBirth
+										)
+			VALUES						(
+										@Department,
+										@Name,
+										@Gender,
+										@DateOfBirth
+										)
+			SET @DBId = @@IDENTITY
+		END
+	else
+		BEGIN
+			UPDATE [dbo].[Employee]
+			SET		[DepartmentId]	=	CASE WHEN @Department IS NULL		THEN [DepartmentId]		ELSE @Department	END,
+					[Gender]	=	CASE WHEN @Gender IS NULL		THEN [Gender]		ELSE @Gender	END,
+					[DateOfBirth]	=	CASE WHEN @DateOfBirth IS NULL		THEN [DateOfBirth]		ELSE @DateOfBirth	END
+			WHERE	Id = @Id
+		END
+	SELECT @DBId
+	RETURN @DBId
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Employee]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Employee].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateEmployee].[@Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Employee].[DepartmentId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Employee].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Employee].[Gender]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Employee].[DateOfBirth]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateEmployee].[@Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateEmployee].[@Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateEmployee].[@Gender]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateEmployee].[@DateOfBirth]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Employee].[Id]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateEmployee].[@Id]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateEmployee].[@Name]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="256" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateEmployee].[@Department]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateEmployee].[@Gender]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[-1]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateEmployee].[@DateOfBirth]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[null]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="1014" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateEmployee]&#xD;&#xA;&#x9;@Id&#x9;&#x9;int = -1,&#xD;&#xA;&#x9;@Name&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@Department int = -1,&#xD;&#xA;&#x9;@Gender&#x9;int = -1,&#xD;&#xA;&#x9;@DateOfBirth Datetime2(7) = null&#xD;&#xA;AS" />
+			</Annotation>
 		</Element>
 		<Element Type="SqlView" Name="[dbo].[viAddress]">
 			<Property Name="QueryScript">
@@ -1369,8 +2278,8 @@
 				D.Name Department, 
 				E.Name Manager
 		FROM	[Department] D
-				JOIN [Company] C ON D.CompanyId = C.Id
-				JOIN [Employee] E ON D.ManagerId = E.Id
+				LEFT JOIN [Company] C ON D.CompanyId = C.Id
+				LEFT JOIN [Employee] E ON D.ManagerId = E.Id
 		WHERE	D.DeletedTime IS NULL
 				AND		E.DeletedTime IS NULL
 				AND		C.DeletedTime IS NULL]]></Value>
@@ -1452,7 +2361,7 @@
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="313" />
+				<Property Name="Length" Value="323" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="CREATE VIEW [dbo].[viDepartment]&#xD;&#xA;&#x9;AS" />
@@ -1461,11 +2370,11 @@
 		<Element Type="SqlView" Name="[dbo].[viEmployee]">
 			<Property Name="QueryScript">
 				<Value><![CDATA[	SELECT	E.Name Employee, 
-				D.Name Department, 
-				C.Name Company, 
 				A.Street, 
 				A.ZipCode, 
 				A.City, 
+				D.Name Department, 
+				C.Name Company, 
 				A.CountryCode
 		FROM	[Employee] E 
 				LEFT JOIN [Address2Employee] L ON E.Id = L.EmployeeId
@@ -1483,24 +2392,6 @@
 						<Relationship Name="ExpressionDependencies">
 							<Entry>
 								<References Name="[dbo].[Employee].[Name]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlComputedColumn" Name="[dbo].[viEmployee].[Department]">
-						<Relationship Name="ExpressionDependencies">
-							<Entry>
-								<References Name="[dbo].[Department].[Name]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlComputedColumn" Name="[dbo].[viEmployee].[Company]">
-						<Relationship Name="ExpressionDependencies">
-							<Entry>
-								<References Name="[dbo].[Company].[Name]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -1528,6 +2419,24 @@
 						<Relationship Name="ExpressionDependencies">
 							<Entry>
 								<References Name="[dbo].[viAddress].[City]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[viEmployee].[Department]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[Department].[Name]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[viEmployee].[Company]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[Company].[Name]" />
 							</Entry>
 						</Relationship>
 					</Element>
@@ -1586,12 +2495,6 @@
 					<References Name="[dbo].[Employee].[Name]" />
 				</Entry>
 				<Entry>
-					<References Name="[dbo].[Department].[Name]" />
-				</Entry>
-				<Entry>
-					<References Name="[dbo].[Company].[Name]" />
-				</Entry>
-				<Entry>
 					<References Name="[dbo].[viAddress].[Street]" />
 				</Entry>
 				<Entry>
@@ -1599,6 +2502,12 @@
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[viAddress].[City]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Department].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Company].[Name]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[viAddress].[CountryCode]" />
