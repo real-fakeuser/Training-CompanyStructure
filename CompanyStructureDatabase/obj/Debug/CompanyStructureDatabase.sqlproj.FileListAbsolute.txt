@@ -1,9 +1,0 @@
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\bin\Debug\CompanyStructureDatabase.dacpac
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\bin\Debug\CompanyStructureDatabase.dll
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\bin\Debug\CompanyStructureDatabase.pdb
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\obj\Debug\CompanyStructureDatabase.dll
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\obj\Debug\CompanyStructureDatabase.pdb
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\obj\Debug\Model.xml
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\obj\Debug\refactor.xml
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\obj\Debug\postdeploy.sql
-C:\Dev\Projects\CompanyStructure\CompanyStructureDatabase\obj\Debug\predeploy.sql
