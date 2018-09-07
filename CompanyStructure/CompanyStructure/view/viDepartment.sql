@@ -3,8 +3,8 @@
 				D.Name Department, 
 				E.Name Manager
 		FROM	[Department] D
-				JOIN [Company] C ON D.CompanyId = C.Id
-				JOIN [Employee] E ON D.ManagerId = E.Id
+				LEFT JOIN [Company] C ON D.CompanyId = C.Id
+				LEFT JOIN [Employee] E ON D.ManagerId = E.Id
 		WHERE	D.DeletedTime IS NULL
 				AND		E.DeletedTime IS NULL
 				AND		C.DeletedTime IS NULL

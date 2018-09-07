@@ -1,10 +1,10 @@
 ﻿CREATE VIEW [dbo].[viEmployee]
 	AS	SELECT	E.Name Employee, 
-				D.Name Department, 
-				C.Name Company, 
 				A.Street, 
 				A.ZipCode, 
 				A.City, 
+				D.Name Department, 
+				C.Name Company, 
 				A.CountryCode
 		FROM	[Employee] E 
 				LEFT JOIN [Address2Employee] L ON E.Id = L.EmployeeId
