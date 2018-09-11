@@ -5,6 +5,6 @@
 				C.Name AS City, 
 				C.CountryCode
 		FROM	[Address] A
-				LEFT JOIN City C ON A.CityId = C.Id
+				LEFT JOIN City C ON A.CityId = C.ZipCode
 		WHERE	A.DeletedTime IS NULL
 				AND	C.DeletedTime IS NULL

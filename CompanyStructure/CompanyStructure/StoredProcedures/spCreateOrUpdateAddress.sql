@@ -1,7 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spCreateOrUpdateAddress]
-	@Id		int = -1,
+	@AddressId int = -1,
 	@Street	nvarchar(256) = null,
-	@CityId	int = -1,
 	@City	nvarchar(256) = null,
 	@ZipCode	int = -1,
 	@CountryCode	nvarchar(5) = null
@@ -9,32 +8,32 @@ AS
 BEGIN
 	declare @DBCity int
 	Set		@DBCity = (
-					SELECT Id
+					SELECT ZipCode
 					FROM City
-					WHERE	[City].[Id] = @CityId
+					WHERE	[City].[ZipCode] = @ZipCode
 					)
 
 
 	IF(@DBCity IS NULL)			--If null the city has to be created
 	BEGIN
 		INSERT INTO [dbo].[City]	(
-									Name,
 									ZipCode,
+									Name,
 									CountryCode
 									)
 		VALUES						(
-									@City,
 									@ZipCode,
+									@City,
 									@CountryCode
 									)									
-		Set	@DBCity = @@IDENTITY
+		Set	@DBCity = @ZipCode
 	END
 --Now we have the city's Id
 
 	declare @DBId int
 	Set @DBId = (	SELECT Id 
 					FROM viAddress 
-					WHERE Id = @Id)
+					WHERE Id = @AddressId)
 
 	if(@DBId is null)
 		BEGIN			--No dataset found! inserting new dataset
@@ -53,7 +52,7 @@ BEGIN
 			UPDATE [dbo].[Address]
 			SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
 					[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END
-			WHERE	Id = @Id
+			WHERE	Id = @AddressId
 		END
 	SELECT @DBId
 	RETURN @DBId
