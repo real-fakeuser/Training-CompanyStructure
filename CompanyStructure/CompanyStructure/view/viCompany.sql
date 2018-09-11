@@ -1,5 +1,6 @@
 ﻿CREATE VIEW [dbo].[viCompany]
-	AS	SELECT	C.[Name] Company, 
+	AS	SELECT	C.[Id],
+				C.[Name] Company, 
 				A.Street, 
 				A.ZipCode, 
 				A.City, 

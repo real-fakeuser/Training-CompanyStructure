@@ -1,5 +1,6 @@
 ﻿CREATE VIEW [dbo].[viDepartment]
-	AS	SELECT	C.Name Company, 
+	AS	SELECT	C.Id,
+				C.Name Company, 
 				D.Name Department, 
 				E.Name Manager
 		FROM	[Department] D

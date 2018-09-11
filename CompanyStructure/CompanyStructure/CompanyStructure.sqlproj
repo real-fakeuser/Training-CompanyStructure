@@ -60,6 +60,7 @@
     <Folder Include="Tables" />
     <Folder Include="View" />
     <Folder Include="StoredProcedures" />
+    <Folder Include="ScaledFunctions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tables\Address.sql" />
@@ -73,6 +74,7 @@
     <Build Include="StoredProcedures\spCreateOrUpdateCompany.sql" />
     <Build Include="StoredProcedures\spCreateOrRemoveAddressEmployee.sql" />
     <Build Include="StoredProcedures\spCreateOrRemoveAddressCompany.sql" />
+    <Build Include="ScaledFunctions\fnGenderLogic.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tables\Address2Company.sql" />

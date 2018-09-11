@@ -1,14 +1,10 @@
 ﻿CREATE VIEW [dbo].[viEmployee]
-	AS	SELECT	E.Name Employee, 
-				A.Street, 
-				A.ZipCode, 
-				A.City, 
+	AS	SELECT	E.Id,
+				E.Name Employee, 
+				dbo.fnGenderLogic (E.Gender) AS Gender,
 				D.Name Department, 
-				C.Name Company, 
-				A.CountryCode
+				C.Name Company
 		FROM	[Employee] E 
-				LEFT JOIN [Address2Employee] L ON E.Id = L.EmployeeId
-				LEFT JOIN [viAddress] A ON L.AddressId = A.Id
 				LEFT JOIN [Department] D	ON E.DepartmentId = D.Id
 				LEFT JOIN [Company] C ON D.CompanyId = C.Id
 		WHERE	E.DeletedTime IS NULL

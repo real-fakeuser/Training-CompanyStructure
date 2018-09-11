@@ -1,0 +1,29 @@
+﻿** Hervorhebungen
+     Tabellen, die neu erstellt werden.
+       [dbo].[City]
+     Gruppierte Indizes, die gelöscht werden.
+       Kein
+     Gruppierte Indizes, die erstellt werden.
+       Kein
+     Mögliche Datenprobleme
+       Die Spalte "[dbo].[City].[Id]" wird gelöscht, es könnte zu einem Datenverlust kommen.
+
+** Benutzeraktionen
+     Löschen
+       unbenannte Einschränkungen auf [dbo].[City] (DEFAULT-Einschränkung)
+       unbenannte Einschränkungen auf [dbo].[Address] (Fremdschlüssel)
+     Tabellenneuerstellung
+       [dbo].[City] (Tabelle)
+     Erstellen
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address] (Fremdschlüssel)
+     Ändern
+       [dbo].[viAddress] (Sicht)
+       [dbo].[viCompany] (Sicht)
+       [dbo].[viEmployee] (Sicht)
+       [dbo].[viDepartment] (Sicht)
+       [dbo].[spCreateOrUpdateAddress] (Prozedur)
+
+** Unterstützende Aktionen
+
+Die Spalte "[dbo].[City].[Id]" wird gelöscht, es könnte zu einem Datenverlust kommen.
+
