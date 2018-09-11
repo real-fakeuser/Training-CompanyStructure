@@ -2,15 +2,15 @@
 	@AddressId int = -1,
 	@Street	nvarchar(256) = null,
 	@City	nvarchar(256) = null,
-	@ZipCode	int = -1,
+	@ZipCode	nvarchar(128) = null,
 	@CountryCode	nvarchar(5) = null
 AS
 BEGIN
-	declare @DBCity int
+	declare @DBCity nvarchar(128)
 	Set		@DBCity = (
 					SELECT ZipCode
 					FROM City
-					WHERE	[City].[ZipCode] = @ZipCode
+					WHERE	[City].[ZipCode] LIKE @ZipCode
 					)
 
 

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Employee]
 (
-	[Id] INT NOT NULL PRIMARY KEY identity(1,1),
+	[Id] INT NOT NULL PRIMARY KEY identity(0,1),
 	[DepartmentId] int null REFERENCES Department(Id),
 	[Name] nvarchar(256) not null,
 	[Gender] int null,
