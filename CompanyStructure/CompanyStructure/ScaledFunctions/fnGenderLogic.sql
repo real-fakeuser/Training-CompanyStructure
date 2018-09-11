@@ -15,8 +15,15 @@ BEGIN
 							WHERE G.Id = @DBId)
 	RETURN @GenderName
 	*/
-	if	(@GenderId = 0)		RETURN	'Männlich'
+	return case @GenderId 
+		when 0 then 'Male'
+		when 1 then 'Female'
+		when 3 then 'Multiple choice'
+		else		'Undefined'
+		end
+
+/*	if	(@GenderId = 0)		RETURN	'Männlich'
 	if	(@GenderId = 1)		RETURN	'Weiblich'
-	if	(@GenderId > 1)		RETURN	'Sonstige'
-	RETURN 'Internal Server Error'
+	if	(@GenderId > 1)		RETURN	'Sonstige'*/
+	RETURN 'Undefinded'
 END

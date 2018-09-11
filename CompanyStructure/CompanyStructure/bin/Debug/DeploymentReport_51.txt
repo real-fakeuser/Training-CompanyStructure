@@ -1,0 +1,52 @@
+﻿** Hervorhebungen
+     Tabellen, die neu erstellt werden.
+       [dbo].[Address]
+       [dbo].[Company]
+       [dbo].[Department]
+       [dbo].[Employee]
+     Gruppierte Indizes, die gelöscht werden.
+       Kein
+     Gruppierte Indizes, die erstellt werden.
+       Kein
+     Mögliche Datenprobleme
+       Kein
+
+** Benutzeraktionen
+     Löschen
+       unbenannte Einschränkungen auf [dbo].[Address] (DEFAULT-Einschränkung)
+       unbenannte Einschränkungen auf [dbo].[Company] (DEFAULT-Einschränkung)
+       unbenannte Einschränkungen auf [dbo].[Department] (DEFAULT-Einschränkung)
+       unbenannte Einschränkungen auf [dbo].[Employee] (DEFAULT-Einschränkung)
+       unbenannte Einschränkungen auf [dbo].[Address] (Fremdschlüssel)
+       unbenannte Einschränkungen auf [dbo].[Address2Company] (Fremdschlüssel)
+       unbenannte Einschränkungen auf [dbo].[Address2Employee] (Fremdschlüssel)
+       unbenannte Einschränkungen auf [dbo].[Address2Company] (Fremdschlüssel)
+       unbenannte Einschränkungen auf [dbo].[Department] (Fremdschlüssel)
+       unbenannte Einschränkungen auf [dbo].[Department] (Fremdschlüssel)
+       unbenannte Einschränkungen auf [dbo].[Employee] (Fremdschlüssel)
+       unbenannte Einschränkungen auf [dbo].[Address2Employee] (Fremdschlüssel)
+     Tabellenneuerstellung
+       [dbo].[Address] (Tabelle)
+       [dbo].[Company] (Tabelle)
+       [dbo].[Department] (Tabelle)
+       [dbo].[Employee] (Tabelle)
+
+** Unterstützende Aktionen
+     Erstellen
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Company] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Employee] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Company] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Department] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Department] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Employee] (Fremdschlüssel)
+       Fremdschlüssel: unbenannte Einschränkungen auf [dbo].[Address2Employee] (Fremdschlüssel)
+     Aktualisieren
+       [dbo].[viAddress] (Sicht)
+       [dbo].[viCompany] (Sicht)
+       [dbo].[viDepartment] (Sicht)
+       [dbo].[viEmployee] (Sicht)
+       [dbo].[spCreateOrUpdateAddress] (Prozedur)
+       [dbo].[spCreateOrUpdateCompany] (Prozedur)
+       [dbo].[spCreateOrUpdateDepartment] (Prozedur)
+       [dbo].[spCreateOrUpdateEmployee] (Prozedur)
