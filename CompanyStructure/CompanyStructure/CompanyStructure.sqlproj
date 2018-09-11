@@ -75,6 +75,7 @@
     <Build Include="StoredProcedures\spCreateOrRemoveAddressEmployee.sql" />
     <Build Include="StoredProcedures\spCreateOrRemoveAddressCompany.sql" />
     <Build Include="ScaledFunctions\fnGenderLogic.sql" />
+    <Build Include="View\test.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tables\Address2Company.sql" />

@@ -15,7 +15,6 @@ BEGIN
 							WHERE G.Id = @DBId)
 	RETURN @GenderName
 	*/
-
 	if	(@GenderId = 0)		RETURN	'Männlich'
 	if	(@GenderId = 1)		RETURN	'Weiblich'
 	if	(@GenderId > 1)		RETURN	'Sonstige'
