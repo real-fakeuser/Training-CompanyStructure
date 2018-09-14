@@ -1675,9 +1675,18 @@ BEGIN
 		END
 	else
 		BEGIN
-			UPDATE [dbo].[Company]
-			SET		[Name]	=	CASE WHEN @Name IS NULL		THEN [Name]		ELSE @Name	END
-			WHERE	Id = @Id
+			if (@Delete != 1)
+			BEGIN
+				UPDATE [dbo].[Company]
+				SET		[Name]	=	CASE WHEN @Name IS NULL		THEN [Name]		ELSE @Name	END
+				WHERE	Id = @Id
+			END
+			else
+			BEGIN
+				UPDATE [dbo].[Company]
+				SET		[DeletedTime]	=	CURRENT_TIMESTAMP
+				WHERE	Id = @Id
+			END
 		END
 	SELECT @DBId
 	RETURN @DBId
@@ -1704,7 +1713,13 @@ END]]></Value>
 					<References Name="[dbo].[spCreateOrUpdateCompany].[@Name]" />
 				</Entry>
 				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateCompany].[@Delete]" />
+				</Entry>
+				<Entry>
 					<References Name="[dbo].[Company].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Company].[DeletedTime]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="Parameters">
@@ -1745,6 +1760,24 @@ END]]></Value>
 						</Relationship>
 					</Element>
 				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateCompany].[@Delete]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
 			</Relationship>
 			<Relationship Name="Schema">
 				<Entry>
@@ -1752,10 +1785,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="589" />
+				<Property Name="Length" Value="770" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateCompany]&#xD;&#xA;&#x9;@Id&#x9;&#x9;int = -1,&#xD;&#xA;&#x9;@Name nvarchar(256) = null&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateCompany]&#xD;&#xA;&#x9;@Id&#x9;&#x9;int = -1,&#xD;&#xA;&#x9;@Name nvarchar(256) = null,&#xD;&#xA;&#x9;@Delete Bit = 0&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrUpdateDepartment]">
