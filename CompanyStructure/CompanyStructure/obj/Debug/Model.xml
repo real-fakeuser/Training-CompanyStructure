@@ -1477,10 +1477,19 @@ BEGIN
 		END
 	else
 		BEGIN
-			UPDATE [dbo].[Address]
-			SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
-					[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END
-			WHERE	Id = @AddressId
+			if (@Delete != 1)
+			BEGIN
+				UPDATE [dbo].[Address]
+				SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
+						[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END
+				WHERE	Id = @AddressId
+			END
+			else
+			BEGIN
+				UPDATE [dbo].[Address]
+				SET		[DeletedTime]	=	CURRENT_TIMESTAMP
+				WHERE	Id = @AddressId
+			END
 		END
 	SELECT @DBId
 	RETURN @DBId
@@ -1543,7 +1552,13 @@ END]]></Value>
 					<References Name="[dbo].[spCreateOrUpdateAddress].[@Street]" />
 				</Entry>
 				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@Delete]" />
+				</Entry>
+				<Entry>
 					<References Name="[dbo].[Address].[Id]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Address].[DeletedTime]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="Parameters">
@@ -1641,6 +1656,24 @@ END]]></Value>
 						</Relationship>
 					</Element>
 				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[spCreateOrUpdateAddress].[@Delete]">
+						<Property Name="DefaultExpressionScript">
+							<Value><![CDATA[0]]></Value>
+						</Property>
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
 			</Relationship>
 			<Relationship Name="Schema">
 				<Entry>
@@ -1648,10 +1681,10 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="1311" />
+				<Property Name="Length" Value="1502" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateAddress]&#xD;&#xA;&#x9;@AddressId int = -1,&#xD;&#xA;&#x9;@Street&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@City&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@ZipCode&#x9;nvarchar(128) = null,&#xD;&#xA;&#x9;@CountryCode&#x9;nvarchar(5) = null&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateAddress]&#xD;&#xA;&#x9;@AddressId int = -1,&#xD;&#xA;&#x9;@Street&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@City&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@ZipCode&#x9;nvarchar(128) = null,&#xD;&#xA;&#x9;@CountryCode&#x9;nvarchar(5) = null,&#xD;&#xA;&#x9;@Delete Bit = 0&#xD;&#xA;&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[spCreateOrUpdateCompany]">

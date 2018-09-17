@@ -3,7 +3,9 @@
 	@Street	nvarchar(256) = null,
 	@City	nvarchar(256) = null,
 	@ZipCode	nvarchar(128) = null,
-	@CountryCode	nvarchar(5) = null
+	@CountryCode	nvarchar(5) = null,
+	@Delete Bit = 0
+
 AS
 BEGIN
 	declare @DBCity nvarchar(128)
@@ -49,10 +51,19 @@ BEGIN
 		END
 	else
 		BEGIN
-			UPDATE [dbo].[Address]
-			SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
-					[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END
-			WHERE	Id = @AddressId
+			if (@Delete != 1)
+			BEGIN
+				UPDATE [dbo].[Address]
+				SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
+						[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END
+				WHERE	Id = @AddressId
+			END
+			else
+			BEGIN
+				UPDATE [dbo].[Address]
+				SET		[DeletedTime]	=	CURRENT_TIMESTAMP
+				WHERE	Id = @AddressId
+			END
 		END
 	SELECT @DBId
 	RETURN @DBId
