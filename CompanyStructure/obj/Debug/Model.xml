@@ -1434,33 +1434,36 @@ END]]></Value>
 			<Property Name="BodyScript">
 				<Value><![CDATA[
 BEGIN
-	declare @DBCity nvarchar(128)
-	Set		@DBCity = (
-					SELECT ZipCode
-					FROM City
-					WHERE	[City].[ZipCode] LIKE @ZipCode
-					)
-
-
-	IF(@DBCity IS NULL)			--If null the city has to be created
+	if(@Delete = 0)
 	BEGIN
-		INSERT INTO [dbo].[City]	(
-									ZipCode,
-									Name,
-									CountryCode
-									)
-		VALUES						(
-									@ZipCode,
-									@City,
-									@CountryCode
-									)									
-		Set	@DBCity = @ZipCode
+		declare @DBCity nvarchar(128)
+		Set		@DBCity = (
+						SELECT ZipCode
+						FROM City
+						WHERE	[City].[ZipCode] LIKE @ZipCode
+						)
+
+
+		IF(@DBCity IS NULL)			--If null the city has to be created
+		BEGIN
+			INSERT INTO [dbo].[City]	(
+										ZipCode,
+										Name,
+										CountryCode
+										)
+			VALUES						(
+										@ZipCode,
+										@City,
+										@CountryCode
+										)									
+			Set	@DBCity = @ZipCode
+		END
 	END
 --Now we have the city's Id
 
 	declare @DBId int
 	Set @DBId = (	SELECT Id 
-					FROM viAddress 
+					FROM Address 
 					WHERE Id = @AddressId)
 
 	if(@DBId is null)
@@ -1496,6 +1499,9 @@ END]]></Value>
 					<References ExternalSource="BuiltIns" Name="[int]" />
 				</Entry>
 				<Entry>
+					<References Name="[dbo].[spCreateOrUpdateAddress].[@Delete]" />
+				</Entry>
+				<Entry>
 					<References Name="[dbo].[City]" />
 				</Entry>
 				<Entry>
@@ -1523,16 +1529,13 @@ END]]></Value>
 					<References Name="[dbo].[spCreateOrUpdateAddress].[@CountryCode]" />
 				</Entry>
 				<Entry>
-					<References Name="[dbo].[viAddress]" />
+					<References Name="[dbo].[Address]" />
 				</Entry>
 				<Entry>
-					<References Name="[dbo].[viAddress].[Id]" />
+					<References Name="[dbo].[Address].[Id]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[spCreateOrUpdateAddress].[@AddressId]" />
-				</Entry>
-				<Entry>
-					<References Name="[dbo].[Address]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[Address].[Street]" />
@@ -1545,9 +1548,6 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[Address].[DeletedTime]" />
-				</Entry>
-				<Entry>
-					<References Name="[dbo].[spCreateOrUpdateAddress].[@Delete]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[Address].[Id]" />
@@ -1673,7 +1673,7 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="1423" />
+				<Property Name="Length" Value="1473" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[spCreateOrUpdateAddress]&#xD;&#xA;&#x9;@AddressId int = -1,&#xD;&#xA;&#x9;@Street&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@City&#x9;nvarchar(256) = null,&#xD;&#xA;&#x9;@ZipCode&#x9;nvarchar(128) = null,&#xD;&#xA;&#x9;@CountryCode&#x9;nvarchar(5) = null,&#xD;&#xA;&#x9;@Delete Bit = 0&#xD;&#xA;&#xD;&#xA;AS" />

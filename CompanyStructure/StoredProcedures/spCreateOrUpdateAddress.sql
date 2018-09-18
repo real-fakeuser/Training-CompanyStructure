@@ -8,33 +8,36 @@
 
 AS
 BEGIN
-	declare @DBCity nvarchar(128)
-	Set		@DBCity = (
-					SELECT ZipCode
-					FROM City
-					WHERE	[City].[ZipCode] LIKE @ZipCode
-					)
-
-
-	IF(@DBCity IS NULL)			--If null the city has to be created
+	if(@Delete = 0)
 	BEGIN
-		INSERT INTO [dbo].[City]	(
-									ZipCode,
-									Name,
-									CountryCode
-									)
-		VALUES						(
-									@ZipCode,
-									@City,
-									@CountryCode
-									)									
-		Set	@DBCity = @ZipCode
+		declare @DBCity nvarchar(128)
+		Set		@DBCity = (
+						SELECT ZipCode
+						FROM City
+						WHERE	[City].[ZipCode] LIKE @ZipCode
+						)
+
+
+		IF(@DBCity IS NULL)			--If null the city has to be created
+		BEGIN
+			INSERT INTO [dbo].[City]	(
+										ZipCode,
+										Name,
+										CountryCode
+										)
+			VALUES						(
+										@ZipCode,
+										@City,
+										@CountryCode
+										)									
+			Set	@DBCity = @ZipCode
+		END
 	END
 --Now we have the city's Id
 
 	declare @DBId int
 	Set @DBId = (	SELECT Id 
-					FROM viAddress 
+					FROM Address 
 					WHERE Id = @AddressId)
 
 	if(@DBId is null)
