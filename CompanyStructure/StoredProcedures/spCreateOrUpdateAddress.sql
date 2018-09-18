@@ -51,19 +51,11 @@ BEGIN
 		END
 	else
 		BEGIN
-			if (@Delete != 1)
-			BEGIN
-				UPDATE [dbo].[Address]
-				SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
-						[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END
-				WHERE	Id = @AddressId
-			END
-			else
-			BEGIN
-				UPDATE [dbo].[Address]
-				SET		[DeletedTime]	=	CURRENT_TIMESTAMP
-				WHERE	Id = @AddressId
-			END
+			UPDATE [dbo].[Address]
+			SET		[Street]	=	CASE WHEN @Street IS NULL		THEN [Street]		ELSE @Street	END,
+					[CityId]	=	CASE WHEN @DBCity IS NULL		THEN [CityId]		ELSE @DBCity	END,
+					[DeletedTime]	= CASE WHEN @Delete=0			THEN [DeletedTime]	ELSE CURRENT_TIMESTAMP	END
+			WHERE	Id = @AddressId
 		END
 	SELECT @DBId
 	RETURN @DBId
